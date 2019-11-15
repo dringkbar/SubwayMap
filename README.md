@@ -1,20 +1,15 @@
-# map
+# Seoul SubwayMap using Leaflet
 
-## Project setup
-```
-npm install
-```
+## 구현 목표
+leaflet.js를 이용한 서울 지하철 지도를 시각화고 지도 위에 자동완성 검색바를 만드는 것이 목표였습니다.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 구현 방법
+Leaflet.js를 사용하여 페이지에 지도를 시각화하였습니다. 
+자료로 주신 서울 지하철 위경도 엑셀 파일을 JSON파일로 변환하여 해당 위치에 지하철 아이콘을 표시하였습니다. 아이콘을 클릭하면 몇호선의 어느 지하철인지 ToolTip으로 표시를 할 수 있게끔 구현을 하였습니다.
+또한 Vuetify를 사용하여 autocomplete 검색바를 만들어 더욱 쉽게 검색이 가능하도록 하였습니다.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 어려웠던 점
+처음 leaflet을 사용하여 지도를 시각화하는 것이 가장 어려웠습니다. 지도가 잘리거나 아예 포시되지 않기도 하여 가장 해매었고 어려웠던 부분이라고 생각됩니다. 또한 지도위에 아이콘을 커스텀하는 단계에서 이미지를 URL이 아닌 로컬 파일을 가져와 사용하는 부분에서 조금 해매기도 하였습니다.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# SubwayMap
+## 추후 수정 및 개선 점
+추후에는 검색을 통하여 해당 위치까지 이동을 할 수 있는 기능과 leaflet.markercluster plugin 활용하여 마커 클러스터링 구현을 하고 싶습니다. 
