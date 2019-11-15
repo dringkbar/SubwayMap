@@ -1,5 +1,7 @@
 # Seoul SubwayMap using Leaflet
 
+![result](./src/assets/result.JPG)
+
 ## 구현 목표
 leaflet.js를 이용한 서울 지하철 지도를 시각화고 지도 위에 자동완성 검색바를 만드는 것이 목표였습니다.
 
