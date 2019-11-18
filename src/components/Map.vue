@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{target}}
     <div id="map"></div>
   </div>
 </template>
@@ -22,12 +21,14 @@ export default {
   props: {
     target: String
   },
+
   data: () => ({
     map: null,
     tileLayer: null,
     marker: null,
     areaList: null
   }),
+
   methods: {
     initMap() {
       this.areaList = AreaList;
@@ -35,35 +36,12 @@ export default {
       this.tileLayer = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
         maxZoom: 18
       });
-
       this.tileLayer.addTo(this.map);
 
-      this.setIcon();
     },
 
     initLayers() {
-      this.layers.forEach(layer => {
-        const markerFeatures = layer.features.filter(
-          feature => feature.type === "marker"
-        );
-        const polygonFeatures = layer.features.filter(
-          feature => feature.type === "polygon"
-        );
-
-        markerFeatures.forEach(feature => {
-          feature.leafletObject = L.marker(feature.coords).bindPopup(
-            feature.name
-          );
-        });
-
-        polygonFeatures.forEach(feature => {
-          feature.leafletObject = L.polygon(feature.coords).bindPopup(
-            feature.name
-          );
-        });
-      });
-    },
-    setIcon() {
+      let markers = L.markerClusterGroup();
       for (let i = 0; i < this.areaList.length; i++) {
         let subwayIcon = L.icon({
           iconUrl: require(`../assets/${this.areaList[i].subwayLine}.png`),
@@ -79,21 +57,24 @@ export default {
         this.marker.bindTooltip(
           `<b>${this.areaList[i].subwayLine} ${this.areaList[i].subwayName}</b><br />${this.areaList[i].address}`
         );
+
+        markers.addLayer(this.marker);
       }
+      this.map.addLayer(markers);
     }
   },
+
   mounted() {
     this.initMap();
-    // this.initLayers();
+    this.initLayers();
   },
+
   watch: {
     target: function() {
       if (this.target !== null) {
-        for (let i = 0; i < this.areaList.length; i++) {
-          if (this.target === this.areaList[i].address)
-            this.map.flyTo(
-              [ Number(this.areaList[i].longitude), Number(this.areaList[i].latitude)], 15);
-        }
+        let targetInfo = this.target.split(' ')
+        let location = this.areaList.find(area => area.subwayLine === targetInfo[0] && area.subwayName === targetInfo[1]);
+        this.map.flyTo([Number(location.longitude), Number(location.latitude)], 15);
       }
     }
   }

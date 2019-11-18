@@ -34,9 +34,7 @@ export default {
   methods: {
     setAutoCompleteData() {
       for (let i = 0; i < this.areaList.length; i++) {
-        this.components.push(this.areaList[i].address);
-        // this.components.push(this.areaList[i].courtBuilding);
-        // this.components.push(this.areaList[i].address);
+        this.components.push(`${this.areaList[i].subwayLine} ${this.areaList[i].subwayName}`);
       }
     },
   }
@@ -55,4 +53,9 @@ export default {
   padding: 10px 5px 10px;
   border-radius: 10px;
 } */
+
+/* #inspire{
+  height: 70px;
+} */
+
 </style>

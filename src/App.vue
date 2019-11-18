@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <SearchBar />
-    <Map />  
+    <!-- <Map />   -->
   </div>
 </template>
 
