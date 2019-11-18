@@ -1,5 +1,8 @@
 <template>
-  <div id="map"></div>
+  <div>
+    {{target}}
+    <div id="map"></div>
+  </div>
 </template>
 
 <script>
@@ -16,6 +19,9 @@ L.Icon.Default.mergeOptions({
 });
 
 export default {
+  props: {
+    target: String
+  },
   data: () => ({
     map: null,
     tileLayer: null,
@@ -32,21 +38,9 @@ export default {
 
       this.tileLayer.addTo(this.map);
 
-      for (let i = 0; i < this.areaList.length; i++) {
-        let subwayIcon = L.icon({
-          iconUrl: require(`../assets/${this.areaList[i].subwayLine}.png`),
-          iconSize: [20, 20]
-        });
-        this.marker = L.marker(
-          [
-            Number(this.areaList[i].longitude),
-            Number(this.areaList[i].latitude)
-          ],
-          { icon: subwayIcon }
-        ).addTo(this.map);
-        this.marker.bindTooltip(this.areaList[i].subwayLine+' '+this.areaList[i].subwayName);
-      }
+      this.setIcon();
     },
+
     initLayers() {
       this.layers.forEach(layer => {
         const markerFeatures = layer.features.filter(
@@ -68,11 +62,40 @@ export default {
           );
         });
       });
+    },
+    setIcon() {
+      for (let i = 0; i < this.areaList.length; i++) {
+        let subwayIcon = L.icon({
+          iconUrl: require(`../assets/${this.areaList[i].subwayLine}.png`),
+          iconSize: [20, 20]
+        });
+        this.marker = L.marker(
+          [
+            Number(this.areaList[i].longitude),
+            Number(this.areaList[i].latitude)
+          ],
+          { icon: subwayIcon }
+        ).addTo(this.map);
+        this.marker.bindTooltip(
+          `<b>${this.areaList[i].subwayLine} ${this.areaList[i].subwayName}</b><br />${this.areaList[i].address}`
+        );
+      }
     }
   },
   mounted() {
     this.initMap();
-    this.initLayers();
+    // this.initLayers();
+  },
+  watch: {
+    target: function() {
+      if (this.target !== null) {
+        for (let i = 0; i < this.areaList.length; i++) {
+          if (this.target === this.areaList[i].address)
+            this.map.flyTo(
+              [ Number(this.areaList[i].longitude), Number(this.areaList[i].latitude)], 15);
+        }
+      }
+    }
   }
 };
 </script>
@@ -83,7 +106,7 @@ export default {
 @import "../../node_modules/leaflet/dist/leaflet.css";
 
 #map {
-  height: 937px; /* height: 100% 하면 지도가 아예 안보여요*/ 
+  height: 937px; /* height: 100% 하면 지도가 아예 안보여요*/
   width: 100%;
 }
 </style>

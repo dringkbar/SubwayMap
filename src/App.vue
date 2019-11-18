@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <SearchBar />
-    <Map />
+    <Map />  
   </div>
 </template>
 
@@ -18,10 +18,10 @@ export default {
 </script>
 
 <style >
-.wrapper{
+/* .wrapper{
   display: flex;
   justify-content: center;
-}
+} */
 
 #map{
   z-index: 0;
