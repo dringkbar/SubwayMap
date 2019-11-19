@@ -1,7 +1,7 @@
 # Seoul SubwayMap using Leaflet
 
-![result](./src/assets/result.JPG)
-![result2](./src/assets/result2.JPG)
+![result](./src/assets/result.PNG)
+![result2](./src/assets/result2.PNG)
 
 leaflet.js를 이용한 서울 지하철 지도를 시각화고 지도 위에 자동완성 검색 바를 만드는 것이 목표였습니다.
 또한, leaflet.markercluster plugin 을사용하여 마커 클러스터링 구현하는 것까지 목표로 삼았습니다.
