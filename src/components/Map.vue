@@ -18,15 +18,11 @@ L.Icon.Default.mergeOptions({
 });
 
 export default {
-  props: {
-    target: String
-  },
-
   data: () => ({
     map: null,
     tileLayer: null,
     marker: null,
-    areaList: null
+    areaList: null,
   }),
 
   methods: {
@@ -37,9 +33,7 @@ export default {
         maxZoom: 18
       });
       this.tileLayer.addTo(this.map);
-
     },
-
     initLayers() {
       let markers = L.markerClusterGroup();
       for (let i = 0; i < this.areaList.length; i++) {
@@ -63,18 +57,29 @@ export default {
       this.map.addLayer(markers);
     }
   },
-
   mounted() {
     this.initMap();
     this.initLayers();
   },
-
+  computed: {
+    selectTarget(){
+      return this.$store.state.target;
+    }
+  },
   watch: {
-    target: function() {
-      if (this.target !== null) {
-        let targetInfo = this.target.split(' ')
-        let location = this.areaList.find(area => area.subwayLine === targetInfo[0] && area.subwayName === targetInfo[1]);
-        this.map.flyTo([Number(location.longitude), Number(location.latitude)], 15);
+    selectTarget: function(target) {
+      console.log(target)
+      if (target !== null) {
+        let targetInfo = target.split(" ");
+        let location = this.areaList.find(
+          area =>
+            area.subwayLine === targetInfo[0] &&
+            area.subwayName === targetInfo[1]
+        );
+        this.map.flyTo(
+          [Number(location.longitude), Number(location.latitude)],
+          15
+        );
       }
     }
   }

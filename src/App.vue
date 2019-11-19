@@ -1,30 +1,15 @@
 <template>
   <div class="wrapper">
-    <SearchBar />
-    <!-- <Map />   -->
+      <Home />
   </div>
 </template>
 
 <script>
-import Map from "./components/Map";
-import SearchBar from "./components/SearchBar";
+import Home from "@/view/Home";
 
 export default {
   components: {
-    Map,
-    SearchBar,
+    Home,
   }
 };
 </script>
-
-<style >
-/* .wrapper{
-  display: flex;
-  justify-content: center;
-} */
-
-#map{
-  z-index: 0;
-}
-
-</style>

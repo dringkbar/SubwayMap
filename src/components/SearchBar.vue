@@ -2,13 +2,10 @@
   <v-app id="inspire">
     <div>
       <v-autocomplete 
-        v-model="target" 
+        v-model="$store.state.target" 
         label="검색어를 입력해 주세요" 
         :items="components"
       ></v-autocomplete>
-      <Map
-        :target ="target" 
-      />
     </div>
   </v-app>
 </template>
@@ -25,7 +22,6 @@ export default {
     return {
       areaList: AreaList,
       components: [],
-      target:null
     };
   },
   mounted() {
@@ -42,7 +38,7 @@ export default {
 </script>
 
 <style>
-/* #inspire {
+#inspire {
   display: flex;
   justify-content: center;
   height: 70px;
@@ -52,7 +48,7 @@ export default {
   left: 100px;
   padding: 10px 5px 10px;
   border-radius: 10px;
-} */
+}
 
 /* #inspire{
   height: 70px;
